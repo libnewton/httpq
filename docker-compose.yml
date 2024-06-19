@@ -3,7 +3,8 @@ services:
   httpq:
     container_name: httpq
     hostname: httpq
-    build: .
+    # build: .
+    image: ghcr.io/libnewton/httpq:latest
     restart: unless-stopped
     command: node dist/server.js
     env_file: .env
@@ -15,7 +16,8 @@ services:
   httpq-worker:
     container_name: httpq-worker
     hostname: httpq-worker
-    build: .
+    # build: .
+    image: ghcr.io/libnewton/httpq:latest
     restart: unless-stopped
     env_file: .env
     command: node dist/worker.js

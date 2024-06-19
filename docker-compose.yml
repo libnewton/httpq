@@ -1,0 +1,34 @@
+
+services:
+  httpq:
+    container_name: httpq
+    hostname: httpq
+    build: .
+    restart: unless-stopped
+    command: node dist/server.js
+    env_file: .env
+    depends_on:
+      - httpq-redis
+      - httpq-worker
+    ports:
+      - "3000:3000"
+  httpq-worker:
+    container_name: httpq-worker
+    hostname: httpq-worker
+    build: .
+    restart: unless-stopped
+    env_file: .env
+    command: node dist/worker.js
+    depends_on:
+      - httpq-redis
+  httpq-redis:
+    image: redis:7.2-alpine
+    container_name: httpq-redis
+    hostname: httpq-redis
+    restart: unless-stopped
+    command: redis-server --appendonly yes --maxmemory-policy noeviction --requirepass ${REDIS_PASSWORD}
+    environment:
+      REDIS_PASSWORD: ${REDIS_PASSWORD}
+    volumes:
+      - ./redis-data:/data
+    

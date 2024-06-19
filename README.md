@@ -25,7 +25,7 @@ You may also change the storage path for the Redis database in the `docker-compo
 - Incoming requests must have the `internal-auth` header set to the same value to be accepted.
 #### Add a Job:
 POST to `/add` with the following JSON body:
-```json
+```js
 {
   "url": "https://example.com/foo", // or /foo if you specified BACKEND_HOSTNAME
   "method": "POST", // POST, GET, DELETE, PUT are supported
@@ -41,7 +41,7 @@ POST to `/add` with the following JSON body:
 }
 ```
 Response:
-```json
+```js
 {
   "job_id": "...",
   "job_name": "..."
@@ -50,7 +50,7 @@ Response:
 
 #### Delete a Job:
 POST to `/delete` with the following JSON body:
-```json
+```js
 {
   "job_id": "...",
   "job_name": "..."
